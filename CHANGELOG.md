@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+- Translated all in-game notifications, configuration descriptions, and log messages into English.
+- Added a packaging check to prevent the previously used Portuguese runtime phrases from returning.
+- Established English as the required language for public documentation and user-facing text.
+
 ## 1.0.1
 
 - Fixed patch loading for `InventoryGrid.OnLeftDown` on Valheim 1.0.7.

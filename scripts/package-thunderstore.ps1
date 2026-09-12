@@ -20,6 +20,41 @@ $licensePath = Join-Path $projectRoot "LICENSE"
 $iconPath = Join-Path $projectRoot "icon.png"
 $dllPath = Join-Path $projectRoot ("bin\{0}\FavoriteItems.dll" -f $Configuration)
 
+# English is the project's required language for public and user-facing text. This check prevents
+# Portuguese runtime wording from earlier builds from returning unnoticed in source or binaries.
+$languageAuditFiles = @(
+    (Join-Path $projectRoot "README.md"),
+    (Join-Path $projectRoot "CHANGELOG.md"),
+    (Join-Path $projectRoot "manifest.json"),
+    (Join-Path $projectRoot "CONTRIBUTING.md")
+) + @(Get-ChildItem -LiteralPath (Join-Path $projectRoot "src") -Filter "*.cs" -File | Select-Object -ExpandProperty FullName)
+
+$legacyNonEnglishPhraseData = @(
+    "RmF2b3JpdG86",
+    "UmVtb3ZpZG8gZG9zIGZhdm9yaXRvcw==",
+    "QXRpdmEgbyBnZXN0bw==",
+    "TW9zdHJhIHVtYSBlc3RyZWxh",
+    "TW9zdHJhIHVtYSBtZW5zYWdlbQ==",
+    "SW1wZWRlIHF1ZQ==",
+    "bmFvIGRldGVjdGFkbw==",
+    "ZGV0ZWN0YWRvLCBtYXM=",
+    "UHJvdGVjYW8gZG8gcXVpY2sgc3RhY2s=",
+    "cHJvdGVjYW8gcG9yIGZhdm9yaXRvcw==",
+    "RmFsaGEgYW8gY29uc3VsdGFy",
+    "TmFvIGZvaSBwb3NzaXZlbA==",
+    "Y2FycmVnYWRvLiBVc2UgQWx0K2NsaXF1ZQ=="
+)
+$legacyNonEnglishPhrases = @($legacyNonEnglishPhraseData | ForEach-Object {
+    [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))
+})
+
+foreach ($phrase in $legacyNonEnglishPhrases) {
+    $sourceMatch = Select-String -LiteralPath $languageAuditFiles -SimpleMatch -CaseSensitive:$false -Pattern $phrase
+    if ($sourceMatch) {
+        throw "English-language policy check failed. Found a legacy Portuguese phrase in $($sourceMatch[0].Path): $phrase"
+    }
+}
+
 $requiredSourceFiles = @(
     $manifestPath,
     $readmePath,
@@ -32,6 +67,24 @@ $requiredSourceFiles = @(
 foreach ($path in $requiredSourceFiles) {
     if (-not (Test-Path -LiteralPath $path -PathType Leaf)) {
         throw "Required package source file was not found: $path"
+    }
+}
+
+$dllBytes = [IO.File]::ReadAllBytes($dllPath)
+foreach ($phrase in $legacyNonEnglishPhrases) {
+    $needle = [Text.Encoding]::Unicode.GetBytes($phrase)
+    $found = $false
+    for ($i = 0; $i -le $dllBytes.Length - $needle.Length -and -not $found; $i++) {
+        $found = $true
+        for ($j = 0; $j -lt $needle.Length; $j++) {
+            if ($dllBytes[$i + $j] -ne $needle[$j]) {
+                $found = $false
+                break
+            }
+        }
+    }
+    if ($found) {
+        throw "English-language policy check failed. The compiled DLL contains a legacy Portuguese phrase: $phrase"
     }
 }
 

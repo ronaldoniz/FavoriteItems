@@ -13,7 +13,7 @@ namespace FavoriteItems
             Type quickStackType = Type.GetType("GorilaChestMod.QuickStack, GorilaChestMod", false);
             if (quickStackType == null)
             {
-                FavoriteItemsPlugin.Log.LogInfo("GorilaChestMod nao detectado; favoritos e indicador continuam ativos.");
+                FavoriteItemsPlugin.Log.LogInfo("GorilaChestMod was not detected; favorites and the visual marker remain active.");
                 return;
             }
 
@@ -23,12 +23,12 @@ namespace FavoriteItems
 
             if (canMove == null || postfix == null || canMove.ReturnType != typeof(bool))
             {
-                FavoriteItemsPlugin.Log.LogWarning("GorilaChestMod detectado, mas QuickStack.CanMove mudou; protecao nao aplicada.");
+                FavoriteItemsPlugin.Log.LogWarning("GorilaChestMod was detected, but QuickStack.CanMove has changed; protection was not applied.");
                 return;
             }
 
             harmony.Patch(canMove, null, new HarmonyMethod(postfix));
-            FavoriteItemsPlugin.Log.LogInfo("Protecao do quick stack do GorilaChestMod ativa.");
+            FavoriteItemsPlugin.Log.LogInfo("GorilaChestMod quick-stack protection is active.");
         }
 
         public static void CanMovePostfix(ItemDrop.ItemData __2, ref bool __result)

@@ -1,6 +1,6 @@
 {
   "name": "FavoriteItems",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "website_url": "https://github.com/ronaldoniz/FavoriteItems",
   "description": "Mark inventory stacks as favorites with Alt-click and keep them out of GorilaChestMod quick stack.",
   "dependencies": [

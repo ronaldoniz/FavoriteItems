@@ -38,7 +38,7 @@ namespace FavoriteItems
             }
             catch (Exception ex)
             {
-                FavoriteItemsPlugin.Log.LogWarning("Nao foi possivel alternar o favorito: " + ex.Message);
+                FavoriteItemsPlugin.Log.LogWarning("Could not toggle favorite state: " + ex.Message);
                 return true;
             }
         }

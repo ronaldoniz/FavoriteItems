@@ -15,7 +15,7 @@ namespace FavoriteItems
             Type apiType = Type.GetType("EquipmentAndQuickSlots.API, EquipmentAndQuickSlots", false);
             if (apiType == null)
             {
-                FavoriteItemsPlugin.Log.LogInfo("EquipmentAndQuickSlots nao detectado; protecao por favoritos continua ativa.");
+                FavoriteItemsPlugin.Log.LogInfo("EquipmentAndQuickSlots was not detected; favorite protection remains active.");
                 return;
             }
 
@@ -23,9 +23,9 @@ namespace FavoriteItems
                 null, new Type[] { typeof(int), typeof(int), typeof(string).MakeByRefType() }, null);
 
             if (_isSlotCell == null)
-                FavoriteItemsPlugin.Log.LogWarning("EquipmentAndQuickSlots detectado, mas a API IsSlotCell nao esta disponivel.");
+                FavoriteItemsPlugin.Log.LogWarning("EquipmentAndQuickSlots was detected, but the IsSlotCell API is unavailable.");
             else
-                FavoriteItemsPlugin.Log.LogInfo("Protecao automatica dos slots do EquipmentAndQuickSlots ativa.");
+                FavoriteItemsPlugin.Log.LogInfo("Automatic EquipmentAndQuickSlots slot protection is active.");
         }
 
         internal static bool IsProtectedSlot(ItemDrop.ItemData item)
@@ -43,7 +43,7 @@ namespace FavoriteItems
                 if (!_warned)
                 {
                     _warned = true;
-                    FavoriteItemsPlugin.Log.LogWarning("Falha ao consultar a API do EquipmentAndQuickSlots: " + ex.Message);
+                    FavoriteItemsPlugin.Log.LogWarning("Failed to query the EquipmentAndQuickSlots API: " + ex.Message);
                 }
                 return false;
             }

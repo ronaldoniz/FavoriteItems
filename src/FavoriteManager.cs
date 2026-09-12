@@ -46,7 +46,7 @@ namespace FavoriteItems
                 name = Localization.instance.Localize(name);
 
             player.Message(MessageHud.MessageType.Center,
-                favorite ? "★ Favorito: " + name : "☆ Removido dos favoritos: " + name);
+                favorite ? "★ Favorite: " + name : "☆ Removed from favorites: " + name);
         }
     }
 }

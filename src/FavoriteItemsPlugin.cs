@@ -13,7 +13,7 @@ namespace FavoriteItems
     {
         public const string PluginGuid = "com.ronaldo.valheim.favoriteitems";
         public const string PluginName = "FavoriteItems";
-        public const string PluginVersion = "1.0.1";
+        public const string PluginVersion = "1.0.2";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
@@ -27,13 +27,13 @@ namespace FavoriteItems
         {
             Log = Logger;
             Enabled = Config.Bind("General", "Enabled", true,
-                "Ativa o gesto Alt+clique, o indicador e a protecao no quick stack.");
+                "Enables Alt-click favorite toggling, the visual marker, and quick-stack protection.");
             ShowMarker = Config.Bind("Visual", "ShowMarker", true,
-                "Mostra uma estrela discreta no canto dos stacks favoritos.");
+                "Shows a subtle star in the corner of favorite stacks.");
             ShowMessages = Config.Bind("Visual", "ShowMessages", true,
-                "Mostra uma mensagem curta ao favoritar ou desfavoritar.");
+                "Shows a short message when an item is favorited or unfavorited.");
             ProtectEquipmentAndQuickSlots = Config.Bind("Compatibility", "ProtectEquipmentAndQuickSlots", true,
-                "Impede que o GorilaChestMod mova itens em qualquer slot especial do EquipmentAndQuickSlots.");
+                "Prevents GorilaChestMod from moving items in EquipmentAndQuickSlots special slots.");
 
             _harmony = new Harmony(PluginGuid);
             _harmony.PatchAll(typeof(FavoriteItemsPlugin).Assembly);
@@ -41,7 +41,7 @@ namespace FavoriteItems
             EquipmentAndQuickSlotsIntegration.Initialize();
             GorilaChestIntegration.Initialize(_harmony);
 
-            Log.LogInfo(PluginName + " " + PluginVersion + " carregado. Use Alt+clique esquerdo para favoritar.");
+            Log.LogInfo(PluginName + " " + PluginVersion + " loaded. Use Alt+left-click to toggle favorites.");
         }
 
         private void OnDestroy()
