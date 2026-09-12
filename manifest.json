@@ -1,8 +1,8 @@
 {
   "name": "FavoriteItems",
-  "version_number": "1.0.2",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/ronaldoniz/FavoriteItems",
-  "description": "Mark inventory stacks as favorites with Alt-click and keep them out of GorilaChestMod quick stack.",
+  "description": "Mark inventory stacks as favorites with Alt-click. Includes a public API, with integrations for major inventory mods in development.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2350"
   ]

@@ -31,11 +31,6 @@ namespace FavoriteItems
             return favorite;
         }
 
-        internal static bool Toggle(ItemDrop.ItemData item)
-        {
-            return SetFavorite(item, !IsFavorite(item));
-        }
-
         internal static void Notify(Player player, ItemDrop.ItemData item, bool favorite)
         {
             if (player == null || item == null || !FavoriteItemsPlugin.ShowMessages.Value)

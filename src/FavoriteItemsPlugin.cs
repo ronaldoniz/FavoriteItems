@@ -1,6 +1,7 @@
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using FavoriteItems.API;
 using HarmonyLib;
 
 namespace FavoriteItems
@@ -13,7 +14,7 @@ namespace FavoriteItems
     {
         public const string PluginGuid = "com.ronaldo.valheim.favoriteitems";
         public const string PluginName = "FavoriteItems";
-        public const string PluginVersion = "1.0.2";
+        public const string PluginVersion = "1.1.0";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
@@ -32,8 +33,8 @@ namespace FavoriteItems
                 "Shows a subtle star in the corner of favorite stacks.");
             ShowMessages = Config.Bind("Visual", "ShowMessages", true,
                 "Shows a short message when an item is favorited or unfavorited.");
-            ProtectEquipmentAndQuickSlots = Config.Bind("Compatibility", "ProtectEquipmentAndQuickSlots", true,
-                "Prevents GorilaChestMod from moving items in EquipmentAndQuickSlots special slots.");
+            ProtectEquipmentAndQuickSlots = Config.Bind("Compatibility", "ProtectEquipmentAndQuickSlots", false,
+                "Automatically protects items in EquipmentAndQuickSlots special slots, even when they are not favorited.");
 
             _harmony = new Harmony(PluginGuid);
             _harmony.PatchAll(typeof(FavoriteItemsPlugin).Assembly);
@@ -46,6 +47,9 @@ namespace FavoriteItems
 
         private void OnDestroy()
         {
+            EquipmentAndQuickSlotsIntegration.Shutdown();
+            ProtectionRegistry.Clear();
+            FavoriteItemsApi.Shutdown();
             FavoriteVisualPatches.Cleanup();
             if (_harmony != null)
                 _harmony.UnpatchSelf();

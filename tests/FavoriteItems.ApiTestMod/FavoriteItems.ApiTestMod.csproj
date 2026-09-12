@@ -2,23 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <AssemblyName>FavoriteItems</AssemblyName>
-    <RootNamespace>FavoriteItems</RootNamespace>
-    <Version>1.1.0</Version>
+    <AssemblyName>FavoriteItems.ApiTestMod</AssemblyName>
+    <RootNamespace>FavoriteItems.ApiTestMod</RootNamespace>
+    <Version>1.0.0</Version>
     <LangVersion>latest</LangVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <DebugType>portable</DebugType>
     <NoWarn>MSB3277</NoWarn>
 
-    <!-- Override with: dotnet build -p:ValheimDir="D:\SteamLibrary\steamapps\common\Valheim" -->
     <ValheimDir Condition="'$(ValheimDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>
     <ValheimManaged>$(ValheimDir)\valheim_Data\Managed</ValheimManaged>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="tests\**\*.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
@@ -26,16 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\FavoriteItems.csproj">
+      <Private>false</Private>
+    </ProjectReference>
     <Reference Include="assembly_valheim">
       <HintPath>$(ValheimManaged)\assembly_valheim.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="assembly_utils">
-      <HintPath>$(ValheimManaged)\assembly_utils.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="assembly_guiutils">
-      <HintPath>$(ValheimManaged)\assembly_guiutils.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine">
@@ -46,16 +36,8 @@
       <HintPath>$(ValheimManaged)\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(ValheimManaged)\UnityEngine.UI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UIModule">
-      <HintPath>$(ValheimManaged)\UnityEngine.UIModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>$(ValheimManaged)\Unity.TextMeshPro.dll</HintPath>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ValheimManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

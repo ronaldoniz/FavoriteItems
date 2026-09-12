@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using FavoriteItems.API;
 using HarmonyLib;
 using UnityEngine;
 
@@ -29,7 +30,10 @@ namespace FavoriteItems
                 if (item == null)
                     return true;
 
-                bool favorite = FavoriteManager.Toggle(item);
+                bool favorite;
+                if (!FavoriteItemsApi.TryToggleFavorite(item, out favorite))
+                    return true;
+
                 FavoriteManager.Notify(player, item, favorite);
 
                 // The marker is refreshed by InventoryGrid.UpdateGui. Skipping the original

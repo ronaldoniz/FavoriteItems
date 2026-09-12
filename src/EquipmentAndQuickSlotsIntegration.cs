@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using FavoriteItems.API;
 
 namespace FavoriteItems
 {
@@ -25,7 +26,17 @@ namespace FavoriteItems
             if (_isSlotCell == null)
                 FavoriteItemsPlugin.Log.LogWarning("EquipmentAndQuickSlots was detected, but the IsSlotCell API is unavailable.");
             else
+            {
+                FavoriteItemsApi.RegisterProtectionProvider(PluginGuid, IsProtectedSlot);
                 FavoriteItemsPlugin.Log.LogInfo("Automatic EquipmentAndQuickSlots slot protection is active.");
+            }
+        }
+
+        internal static void Shutdown()
+        {
+            FavoriteItemsApi.UnregisterProtectionProvider(PluginGuid);
+            _isSlotCell = null;
+            _warned = false;
         }
 
         internal static bool IsProtectedSlot(ItemDrop.ItemData item)

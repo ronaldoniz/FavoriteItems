@@ -1,14 +1,15 @@
 # FavoriteItems for Valheim
 
-Keep important inventory stacks safe from quick stack with a simple favorite marker.
+Keep important inventory stacks safe from automatic movement with a simple favorite marker.
 
 ## Features
 
 - Mark or unmark a stack with `Alt + left-click`.
 - See favorites at a glance with a subtle golden star.
-- Keep favorite items out of GorilaChestMod quick stack.
-- Automatically protect EquipmentAndQuickSlots equipment and quick slots.
+- Keep favorite items out of supported automatic inventory actions.
+- Optionally protect EquipmentAndQuickSlots equipment and quick slots without favoriting them.
 - Preserve favorites when saving, moving, splitting, or merging stacks.
+- Provide a public API for compatible inventory and quick-stack mods.
 - Use the mod client-side without requiring it on the server.
 
 ## How to use
@@ -41,9 +42,9 @@ BepInEx\config\com.ronaldo.valheim.favoriteitems.cfg
 
 ## Compatibility
 
-- **GorilaChestMod 2.2.2:** favorite stacks are not moved during quick stack.
-- **EquipmentAndQuickSlots 3.x:** equipment and quick-slot cells are protected automatically when
-  its compatible API is available.
+- **GorilaChestMod 2.4.0:** favorite stacks are not moved during quick stack.
+- **EquipmentAndQuickSlots 3.x:** equipment and quick-slot cells can be protected automatically,
+  even without a favorite marker, when the compatibility option is enabled.
 - Both integrations are optional. FavoriteItems continues to work when either mod is absent.
 
 Favorites are currently guaranteed to block automatic movement only in the supported
@@ -54,7 +55,14 @@ GorilaChestMod integration. Other inventory and quick-stack mods require their o
 - Enable or disable the favorite system.
 - Show or hide the golden star.
 - Show or hide favorite notifications.
-- Enable or disable automatic EquipmentAndQuickSlots protection.
+- Enable optional automatic EquipmentAndQuickSlots protection. This is disabled by default for new
+  installations so that unmarked items behave predictably.
+
+## For mod authors
+
+FavoriteItems provides a small public API to query or change favorites, block automatic movement,
+and register protected-slot providers. The [API reference](https://github.com/ronaldoniz/FavoriteItems/blob/main/docs/API.md)
+includes direct-reference and optional-integration examples.
 
 ## Known limitations
 
@@ -66,3 +74,8 @@ GorilaChestMod integration. Other inventory and quick-stack mods require their o
 
 FavoriteItems is open source under the MIT License. Source code, releases, and issue reporting are
 available on [GitHub](https://github.com/ronaldoniz/FavoriteItems).
+
+## Tip jar
+
+Liked the mod? You can leave a small tip on [Ko-fi](https://ko-fi.com/ronaldoniz) — completely
+optional, always appreciated.

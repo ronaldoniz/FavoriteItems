@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using FavoriteItems.API;
 using HarmonyLib;
 
 namespace FavoriteItems
@@ -34,10 +35,10 @@ namespace FavoriteItems
         public static void CanMovePostfix(ItemDrop.ItemData __2, ref bool __result)
         {
             ItemDrop.ItemData item = __2;
-            if (!__result || !FavoriteItemsPlugin.Enabled.Value || item == null)
+            if (!__result || item == null)
                 return;
 
-            if (FavoriteManager.IsFavorite(item) || EquipmentAndQuickSlotsIntegration.IsProtectedSlot(item))
+            if (FavoriteItemsApi.ShouldPreventAutomaticMove(item))
                 __result = false;
         }
     }

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0
+
+- Added a stable public API for querying and changing favorite state.
+- Added a unified automatic-movement policy for quick-stack integrations.
+- Added protection-provider registration for equipment and additional-slot mods.
+- Refactored GorilaChestMod and EquipmentAndQuickSlots support to use the shared API policy.
+- Changed automatic EquipmentAndQuickSlots protection to opt-in for new configurations.
+- Added an unpublished development test mod for API contract and failure-isolation checks.
+
 ## 1.0.2
 
 - Translated all in-game notifications, configuration descriptions, and log messages into English.
