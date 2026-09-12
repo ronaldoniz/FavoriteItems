@@ -1,0 +1,26 @@
+# Build output
+bin/
+obj/
+
+# IDE and user-specific files
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Local packages and logs
+packages/
+*.log
+
+# Game and mod-loader assemblies must never be committed
+assembly_valheim.dll
+assembly_utils.dll
+assembly_guiutils.dll
+UnityEngine*.dll
+Unity.TextMeshPro.dll
+BepInEx*.dll
+0Harmony.dll
+
+# Release artifacts are attached to GitHub Releases, not tracked in source
+*.zip
+*.pdb

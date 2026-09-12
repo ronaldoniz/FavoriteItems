@@ -1,0 +1,9 @@
+{
+  "name": "FavoriteItems",
+  "version_number": "1.0.1",
+  "website_url": "https://github.com/ronaldoniz/FavoriteItems",
+  "description": "Favorite inventory stacks with Alt-click and protect them from GorilaChestMod quick stack.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2350"
+  ]
+}
