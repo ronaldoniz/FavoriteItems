@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+- Added optional automatic protection for ExtraSlots 1.2.3 special slots.
+- Integrated ExtraSlots through its public `IsItemInSlot` API without making it a required dependency.
+- Kept automatic protection disabled by default so unstarred special-slot items continue to move unless explicitly protected.
+
 ## 1.1.0
 
 - Added a stable public API for querying and changing favorite state.

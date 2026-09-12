@@ -57,6 +57,8 @@ to the receiving stack. Removing a favorite deletes only the key shown above.
   whether the item must remain in place.
 - EquipmentAndQuickSlots support discovers `EquipmentAndQuickSlots.API.IsSlotCell` through
   reflection and registers it as an optional protection provider.
+- ExtraSlots support discovers `ExtraSlots.API.IsItemInSlot` through reflection and registers it as
+  an optional protection provider.
 - The public integration contract is documented in `docs/API.md`.
 
 ## API test mod
@@ -78,6 +80,7 @@ or Thunderstore packages.
 - Loading and usage on a multiplayer server were tested by the author for version 1.0.1.
 - Version 1.1.0 API calls, events, provider replacement, exception isolation, GorilaChestMod 2.4.0
   quick-stack behavior, and EquipmentAndQuickSlots protection were tested by the author.
+- Version 1.2.0 ExtraSlots automatic protection was tested in game by the author.
 
 These are author tests, not independent certification for every combination of mods.
 
@@ -88,5 +91,8 @@ These are author tests, not independent certification for every combination of m
 3. Run quick stack with favorite and non-favorite stacks of the same item.
 4. Split and merge a favorite stack and verify that its state is preserved.
 5. Enable `ProtectEquipmentAndQuickSlots`, then confirm that a quick-slot item is not moved.
-6. Restart the character and confirm persistence.
-7. Check `BepInEx\LogOutput.log` for English status messages and patching errors.
+6. With ExtraSlots installed, confirm an unstarred special-slot item moves while `ProtectExtraSlots`
+   is disabled and remains in place after enabling it.
+7. Confirm an unstarred regular-inventory item still moves while `ProtectExtraSlots` is enabled.
+8. Restart the character and confirm persistence.
+9. Check `BepInEx\LogOutput.log` for English status messages and patching errors.

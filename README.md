@@ -7,7 +7,7 @@ Keep important inventory stacks safe from automatic movement with a simple favor
 - Mark or unmark a stack with `Alt + left-click`.
 - See favorites at a glance with a subtle golden star.
 - Keep favorite items out of supported automatic inventory actions.
-- Optionally protect EquipmentAndQuickSlots equipment and quick slots without favoriting them.
+- Optionally protect supported special-slot inventories without favoriting their items.
 - Preserve favorites when saving, moving, splitting, or merging stacks.
 - Provide a public API for compatible inventory and quick-stack mods.
 - Use the mod client-side without requiring it on the server.
@@ -45,7 +45,9 @@ BepInEx\config\com.ronaldo.valheim.favoriteitems.cfg
 - **GorilaChestMod 2.4.0:** favorite stacks are not moved during quick stack.
 - **EquipmentAndQuickSlots 3.x:** equipment and quick-slot cells can be protected automatically,
   even without a favorite marker, when the compatibility option is enabled.
-- Both integrations are optional. FavoriteItems continues to work when either mod is absent.
+- **ExtraSlots 1.2.3:** manual favorites work in regular and special slots. Special-slot items can
+  also be protected automatically, even without a favorite marker, when its compatibility option is enabled.
+- All listed mods are optional. FavoriteItems continues to work when they are absent.
 
 Favorites are currently guaranteed to block automatic movement only in the supported
 GorilaChestMod integration. Other inventory and quick-stack mods require their own integration.
@@ -57,6 +59,7 @@ GorilaChestMod integration. Other inventory and quick-stack mods require their o
 - Show or hide favorite notifications.
 - Enable optional automatic EquipmentAndQuickSlots protection. This is disabled by default for new
   installations so that unmarked items behave predictably.
+- Enable optional automatic ExtraSlots protection. This is also disabled by default.
 
 ## For mod authors
 
@@ -69,6 +72,7 @@ includes direct-reference and optional-integration examples.
 - The shortcut currently supports keyboard and mouse only.
 - Quick-stack protection is currently specific to GorilaChestMod.
 - EquipmentAndQuickSlots protection depends on its current public `IsSlotCell` API.
+- ExtraSlots protection depends on its current public `IsItemInSlot` API.
 
 ## Source and support
 

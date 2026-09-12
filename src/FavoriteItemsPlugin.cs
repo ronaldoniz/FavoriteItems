@@ -10,17 +10,19 @@ namespace FavoriteItems
     [BepInProcess("valheim.exe")]
     [BepInDependency(GorilaChestIntegration.PluginGuid, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(EquipmentAndQuickSlotsIntegration.PluginGuid, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ExtraSlotsIntegration.PluginGuid, BepInDependency.DependencyFlags.SoftDependency)]
     public sealed class FavoriteItemsPlugin : BaseUnityPlugin
     {
         public const string PluginGuid = "com.ronaldo.valheim.favoriteitems";
         public const string PluginName = "FavoriteItems";
-        public const string PluginVersion = "1.1.0";
+        public const string PluginVersion = "1.2.0";
 
         internal static ManualLogSource Log;
         internal static ConfigEntry<bool> Enabled;
         internal static ConfigEntry<bool> ShowMarker;
         internal static ConfigEntry<bool> ShowMessages;
         internal static ConfigEntry<bool> ProtectEquipmentAndQuickSlots;
+        internal static ConfigEntry<bool> ProtectExtraSlots;
 
         private Harmony _harmony;
 
@@ -35,11 +37,14 @@ namespace FavoriteItems
                 "Shows a short message when an item is favorited or unfavorited.");
             ProtectEquipmentAndQuickSlots = Config.Bind("Compatibility", "ProtectEquipmentAndQuickSlots", false,
                 "Automatically protects items in EquipmentAndQuickSlots special slots, even when they are not favorited.");
+            ProtectExtraSlots = Config.Bind("Compatibility", "ProtectExtraSlots", false,
+                "Automatically protects items in ExtraSlots special slots, even when they are not favorited.");
 
             _harmony = new Harmony(PluginGuid);
             _harmony.PatchAll(typeof(FavoriteItemsPlugin).Assembly);
 
             EquipmentAndQuickSlotsIntegration.Initialize();
+            ExtraSlotsIntegration.Initialize();
             GorilaChestIntegration.Initialize(_harmony);
 
             Log.LogInfo(PluginName + " " + PluginVersion + " loaded. Use Alt+left-click to toggle favorites.");
@@ -48,6 +53,7 @@ namespace FavoriteItems
         private void OnDestroy()
         {
             EquipmentAndQuickSlotsIntegration.Shutdown();
+            ExtraSlotsIntegration.Shutdown();
             ProtectionRegistry.Clear();
             FavoriteItemsApi.Shutdown();
             FavoriteVisualPatches.Cleanup();

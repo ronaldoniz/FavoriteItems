@@ -1,6 +1,6 @@
 # FavoriteItems public API
 
-FavoriteItems 1.1.0 exposes API contract version `1` from the main `FavoriteItems.dll`. The API is
+FavoriteItems 1.2.0 exposes API contract version `1` from the main `FavoriteItems.dll`. The API is
 intended for calls from Unity's main thread.
 
 ## Contract
