@@ -1,129 +1,130 @@
-# FavoriteItems para Valheim 1.0
+# FavoriteItems for Valheim 1.0
 
-Mod client-side simples para marcar stacks do inventario como favoritos e impedir que o
-**GorilaChestMod** os envie para baus durante o quick stack.
+A lightweight client-side mod that lets you mark inventory stacks as favorites and prevents
+**GorilaChestMod** from moving them into chests during quick stack.
 
-## Uso
+## Usage
 
-1. Abra o inventario.
-2. Segure `Alt` esquerdo ou direito.
-3. Clique com o botao esquerdo em um stack.
-4. Uma estrela dourada discreta indica que o stack esta protegido.
+1. Open your inventory.
+2. Hold the left or right `Alt` key.
+3. Left-click an item stack.
+4. A small golden star indicates that the stack is protected.
 
-Repita `Alt + clique` para desfavoritar.
+Repeat `Alt + left-click` to remove the favorite.
 
-## Compatibilidade implementada
+## Compatibility
 
-- **GorilaChestMod 2.2.2**: aplica um postfix Harmony em
-  `GorilaChestMod.QuickStack.CanMove(Player, Inventory, ItemData)`. Itens favoritos recebem
-  `false` antes da movimentacao.
-- **EquipmentAndQuickSlots 3.x**: integracao opcional por reflexao com a API publica
-  `EquipmentAndQuickSlots.API.IsSlotCell`. Todos os slots especiais ativos ficam protegidos
-  automaticamente, inclusive quick slots, mesmo sem estrela.
-- Os dois mods sao dependencias opcionais. FavoriteItems continua carregando sem eles.
+- **GorilaChestMod 2.2.2**: applies a Harmony postfix to
+  `GorilaChestMod.QuickStack.CanMove(Player, Inventory, ItemData)`. Favorite items are rejected
+  before they can be moved.
+- **EquipmentAndQuickSlots 3.x**: optional reflection-based integration with the public
+  `EquipmentAndQuickSlots.API.IsSlotCell` API. Active equipment and quick-slot cells are
+  automatically protected, even when they do not have a favorite star.
+- Both mods are optional dependencies. FavoriteItems continues to load without them.
 
-## Persistencia e stacks
+## Persistence and stack safety
 
-O favorito e salvo somente nesta chave do `ItemData.m_customData`:
+Favorite state is stored only in this `ItemData.m_customData` key:
 
 ```
 com.ronaldo.valheim.favoriteitems.favorite = 1
 ```
 
-Isso preserva todos os dados de outros mods. No Valheim 1.0.7, `m_customData` e salvo com o
-personagem e copiado por `ItemData.Clone()`, mas nao participa de `IsSameType` nem de
-`FindFreeStackItem`; por isso a estrela nao impede stacks iguais de se juntarem.
+This preserves data created by other mods. In Valheim 1.0.7, `m_customData` is saved with the
+character and copied by `ItemData.Clone()`, but it is not considered by `IsSameType` or
+`FindFreeStackItem`. As a result, the favorite marker does not prevent compatible stacks from
+merging.
 
-Quando um stack favorito e dividido, os dois lados continuam favoritos. Quando ele e mesclado
-em outro stack compativel, o stack de destino tambem passa a ser favorito. Ao desfavoritar,
-somente a chave acima e removida.
+When a favorite stack is split, both resulting stacks remain favorites. When it is merged into
+another compatible stack, the destination stack becomes a favorite as well. Removing a favorite
+deletes only the custom-data key shown above.
 
-## Instalacao
+## Installation
 
-Requisitos:
+Requirements:
 
-- Valheim 1.0 com backend Mono;
+- Valheim 1.0 using the Mono backend;
 - BepInEx 5 (`denikson-BepInExPack_Valheim`);
-- GorilaChestMod apenas se quiser a protecao no quick stack;
-- EquipmentAndQuickSlots apenas se quiser os slots extras.
+- GorilaChestMod only if you want quick-stack protection;
+- EquipmentAndQuickSlots only if you want automatic protection for its extra slots.
 
-### Thunderstore Mod Manager / r2modman
+### Thunderstore Mod Manager / r2modman profile
 
-Copie `FavoriteItems.dll` para:
+Place `FavoriteItems.dll` at:
 
 ```
-<perfil>\BepInEx\plugins\ronaldoniz-FavoriteItems\FavoriteItems.dll
+<profile>\BepInEx\plugins\ronaldoniz-FavoriteItems\FavoriteItems.dll
 ```
 
-### Instalacao manual
+### Manual installation
 
-Copie `FavoriteItems.dll` para:
+Place `FavoriteItems.dll` at:
 
 ```
 <Valheim>\BepInEx\plugins\ronaldoniz-FavoriteItems\FavoriteItems.dll
 ```
 
-Inicie o jogo e confirme em `BepInEx\LogOutput.log`:
+Start the game and confirm that `BepInEx\LogOutput.log` contains:
 
 ```
 FavoriteItems 1.0.1 carregado
 Protecao do quick stack do GorilaChestMod ativa
 ```
 
-O arquivo de configuracao e criado em:
+The configuration file is created at:
 
 ```
 BepInEx\config\com.ronaldo.valheim.favoriteitems.cfg
 ```
 
-## Build
+## Building from source
 
-Instale o .NET SDK e execute na pasta do projeto:
+Install the .NET SDK and run this command in the project directory:
 
 ```powershell
 dotnet build -c Release
 ```
 
-Se o Valheim estiver em outra pasta:
+If Valheim is installed elsewhere:
 
 ```powershell
 dotnet build -c Release -p:ValheimDir="D:\SteamLibrary\steamapps\common\Valheim"
 ```
 
-A DLL sera criada em `bin\Release\FavoriteItems.dll`.
+The compiled file is written to `bin\Release\FavoriteItems.dll`.
 
-O projeto nao inclui as DLLs do Valheim. O build usa os assemblies da instalacao local do
-jogo indicada por `ValheimDir`.
+The project does not include Valheim assemblies. The build uses the assemblies from the local
+game installation specified by `ValheimDir`.
 
-## Estado dos testes
+## Test status
 
-- Carregamento e uso em partida solo: aprovado pelo autor.
-- Carregamento e uso em servidor multiplayer: aprovado pelo autor.
-- Build local da versao publicada: verificado antes da Release.
+- Loading and usage in a single-player game: tested by the author.
+- Loading and usage on a multiplayer server: tested by the author.
+- Local build of the published version: verified before release.
 
-Esses testes foram realizados pelo autor no ambiente de jogo dele; nao constituem uma
-certificacao independente de compatibilidade com todas as combinacoes de mods.
+These tests were performed by the author in their own game environment and do not constitute an
+independent certification for every possible combination of mods.
 
-## Releases e atualizacoes
+## Releases and updates
 
-As versoes compiladas ficam em
-[GitHub Releases](https://github.com/ronaldoniz/FavoriteItems/releases). Cada correcao recebe
-uma nova versao seguindo versionamento semantico; os arquivos de releases anteriores nao sao
-substituidos.
+Compiled versions are available from
+[GitHub Releases](https://github.com/ronaldoniz/FavoriteItems/releases). Each fix receives a new
+semantic version; files from previous releases are not replaced.
 
-## Verificacao recomendada dentro do jogo
+## Recommended in-game verification
 
-1. Crie um perfil de teste com BepInEx, GorilaChestMod e FavoriteItems.
-2. Coloque dois stacks iguais no inventario e o mesmo item em um bau proximo.
-3. Favorite apenas um stack e use o quick stack do Gorila.
-4. Confirme que o favorito ficou e o outro stack foi movido.
-5. Divida e depois una o stack favorito; confirme a estrela nos stacks resultantes.
-6. Com EquipmentAndQuickSlots, coloque comida em `Quick1` e confirme que ela nao e movida.
-7. Saia normalmente, entre de novo e confirme que a estrela persistiu.
+1. Create a test profile with BepInEx, GorilaChestMod, and FavoriteItems.
+2. Put two identical stacks in your inventory and the same item in a nearby chest.
+3. Favorite only one stack and run GorilaChestMod quick stack.
+4. Confirm that the favorite remains and the other stack is moved.
+5. Split and merge the favorite stack, then confirm the star remains on the resulting stacks.
+6. With EquipmentAndQuickSlots installed, place food in `Quick1` and confirm it is not moved.
+7. Exit normally, load the character again, and confirm that the star persists.
 
-## Limites desta versao
+## Known limitations
 
-- O gesto e voltado a teclado e mouse; nao ha atalho de gamepad.
-- A integracao EAQS requer a API `IsSlotCell` das versoes 3.x atuais. Se a API mudar, o log
-  avisa e apenas essa protecao automatica e desativada; favoritos continuam funcionando.
-- A protecao implementada e especifica ao quick stack do GorilaChestMod.
+- The shortcut currently supports keyboard and mouse only; there is no gamepad binding.
+- EAQS integration requires the `IsSlotCell` API provided by current 3.x versions. If that API
+  changes, the log reports the problem and disables only automatic slot protection; manual
+  favorites continue to work.
+- Quick-stack protection is currently specific to GorilaChestMod.
