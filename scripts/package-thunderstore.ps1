@@ -26,7 +26,8 @@ $languageAuditFiles = @(
     (Join-Path $projectRoot "README.md"),
     (Join-Path $projectRoot "CHANGELOG.md"),
     (Join-Path $projectRoot "manifest.json"),
-    (Join-Path $projectRoot "CONTRIBUTING.md")
+    (Join-Path $projectRoot "CONTRIBUTING.md"),
+    (Join-Path $projectRoot "DEVELOPMENT.md")
 ) + @(Get-ChildItem -LiteralPath (Join-Path $projectRoot "src") -Filter "*.cs" -File | Select-Object -ExpandProperty FullName)
 
 $legacyNonEnglishPhraseData = @(

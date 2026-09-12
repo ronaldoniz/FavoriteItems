@@ -9,3 +9,6 @@ descriptions, in-game notifications, warnings, errors, and log messages.
 Before preparing a release, review every changed string and run the Thunderstore packaging script.
 The script checks for Portuguese phrases that appeared in earlier builds and rejects the package if
 one is found in the source or compiled DLL.
+
+Build, packaging, compatibility, and release-verification details are maintained in
+`DEVELOPMENT.md`.

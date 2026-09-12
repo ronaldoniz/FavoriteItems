@@ -5,6 +5,7 @@
 - Translated all in-game notifications, configuration descriptions, and log messages into English.
 - Added a packaging check to prevent the previously used Portuguese runtime phrases from returning.
 - Established English as the required language for public documentation and user-facing text.
+- Refocused the package README on players and moved contributor details to `DEVELOPMENT.md`.
 
 ## 1.0.1
 
