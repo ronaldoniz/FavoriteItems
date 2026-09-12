@@ -64,12 +64,9 @@ Place `FavoriteItems.dll` at:
 <Valheim>\BepInEx\plugins\ronaldoniz-FavoriteItems\FavoriteItems.dll
 ```
 
-Start the game and confirm that `BepInEx\LogOutput.log` contains:
-
-```
-FavoriteItems 1.0.1 carregado
-Protecao do quick stack do GorilaChestMod ativa
-```
+Start the game and confirm in `BepInEx\LogOutput.log` that FavoriteItems 1.0.1 was loaded. When
+GorilaChestMod is installed and its supported integration is found, the log also confirms that
+quick-stack protection is active.
 
 The configuration file is created at:
 

@@ -22,5 +22,6 @@ BepInEx*.dll
 0Harmony.dll
 
 # Release artifacts are attached to GitHub Releases, not tracked in source
+dist/
 *.zip
 *.pdb
